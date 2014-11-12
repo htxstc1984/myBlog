@@ -2,3 +2,4 @@ eclipse.preferences.version=1
 encoding//conf/globalConf.py=utf-8
 encoding//myBlogLib/db.py=utf-8
 encoding//myBlogLib/models/Model.py=utf-8
+encoding/service.py=utf-8
