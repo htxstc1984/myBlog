@@ -8,11 +8,12 @@ import ConfigParser
 import threading
 
 from gridfs import GridFS
-import pymongo
 from pymongo.connection import Connection
 from pymongo.database import Database
 from pymongo.mongo_client import MongoClient
 from threading import Thread
+from jinja2.loaders import PackageLoader
+from conf import globalConf
 
 
 class nosqlDB:
@@ -27,10 +28,10 @@ class nosqlDB:
     def _conn():
         if not nosqlDB.con:
             try:
-                config = ConfigParser.ConfigParser()
-                config.readfp(open('../conf/db.ini'))
-                nosqlDB.initParas = {k:v for k, v in config.items('nosqldb')}
-                nosqlDB.con = Connection(host=nosqlDB.initParas['host'], port=int(nosqlDB.initParas['port']), max_pool_size=100)
+#                 config = ConfigParser.ConfigParser()
+#                 config.readfp(open(PackageLoader('conf','db.ini')))
+                nosqlDB.initParas = globalConf.nosqldb
+                nosqlDB.con = Connection(host=nosqlDB.initParas['host'], port=nosqlDB.initParas['port'], max_pool_size=100)
     #             nosqlDB.con = MongoClient(host=nosqlDB.initParas['host'], port=nosqlDB.initParas['port'], max_pool_size=200)
                 
                 nosqlDB.db = Database(nosqlDB.con, nosqlDB.initParas['db'])
@@ -65,14 +66,14 @@ if __name__ == '__main__':
 #     dbcon = nosqlDB.getInstance()
 #     print dbcon.db.user.insert({'a':threading.current_thread().name})
     
-    def callback():
-        dbcon = nosqlDB.getInstance()
-        print dbcon.db.user.insert({'a':threading.current_thread().name})
-        print threading.current_thread().name
-    for i in range(10):
-        th = Thread(target=callback)
-        th.start()
-        th.join()
+#     def callback():
+#         dbcon = nosqlDB.getInstance()
+#         print dbcon.db.user.insert({'a':threading.current_thread().name})
+#         print threading.current_thread().name
+#     for i in range(10):
+#         th = Thread(target=callback)
+#         th.start()
+#         th.join()
     
-    print 'over'
+#     print 'over'
     pass
