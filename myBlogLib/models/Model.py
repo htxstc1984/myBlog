@@ -54,6 +54,14 @@ class User(MetaModel):
     def checkUsername(cls, username):
         return getDB().db[cls.__tablename__].find_one({'username':username})
     
+    @classmethod
+    def doLogin(cls, username, password):
+        user = User.getDoc(dict(username=username, password=password))
+        if user:
+            return True, user
+        else:
+            return False, '用户名或密码错误'
+    
 class Article(MetaModel):
     __tablename__ = 'article'
     @classmethod

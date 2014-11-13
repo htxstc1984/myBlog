@@ -9,6 +9,7 @@ from flask.globals import request
 from flask.helpers import url_for
 from werkzeug.utils import redirect
 from myBlogLib.models.Model import User
+from flask.templating import render_template
 
 
 if __name__ == '__main__':
@@ -17,17 +18,16 @@ if __name__ == '__main__':
     
     @app.route('/login')
     def login():
-        return u'<html><form action=\'/doLogin\' method="POST"><input type="text" name="username"><br><input type="password" name="password"><br><input type="submit" value="提交"></form></html>'
+        return render_template('login.html')
     
-    @app.route('/doLogin',methods=['POST'])
+    @app.route('/doLogin', methods=['POST'])
     def doLogin():
-
-        user = User.getDoc(dict(username=request.form['username'],password=request.form['password']))
-        if user:
-            return u'欢迎登陆'
+        flag, obj = User.doLogin(request.form['username'], request.form['password'])
+        if flag:
+            return render_template('blogManager.html', user=obj)
         else:
-            return redirect(url_for('login'))
+            return redirect(url_for('login', error=obj))
         
         
-    app.run()
+    app.run(host='0.0.0.0', port=8088)
     
