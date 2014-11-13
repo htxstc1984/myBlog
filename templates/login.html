@@ -1,18 +1,13 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<title>请登录</title>
-</head>
-<body>
+{% include 'header.html' %}
 
-	<form action="doLogin" method="POST">
-		<input type="text" name="username">
-		<br>
-		<input type="password" name="password">
-		<br>
-		<input type="submit" value="提交">
-	</form>
-	{{error}}
-</body>
-</html>
+<div style='width:70%;margin-top:10%;height:400px;background-color:gray'>
+<form action="doLogin" method="POST">
+	<input type="text" name="username">
+	<br>
+	<input type="password" name="password">
+	<br>
+	<input type="submit" value="提交">
+</form>
+{{error}}
+</div>
+{% include 'footer.html' %}
