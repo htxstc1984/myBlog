@@ -23,28 +23,40 @@ body{
 	margin-left:10%;
 	color:white;
 }
-.topItems a{
+.Logo{
+	float:left;
+}
+.menuitem{
 	float:left;
 	margin-left:20px;
 	background-color:blue;
 }
-.topItems a:hover{
+.menuitem:hover{
 	cursor:pointer;
+}
+.userinfo{
+	float:right;
+	margin-right:10%;
+	background-color:blue;
 }
 .main{
 	margin-top:20px;
 	width:80%
 }
 </style>
+
 <body>
 	<div class="topMenu">
 		<center>
 			<div class="topItems">
-				<a><strong><font size="5px">黄庭曦的官方网站</font></strong></a>
-				<a>首页</a>
-				<a>文章</a>
-				<a>照片</a>
-				<a>问答</a>
+				<a class="Logo"><strong><font size="5px">黄庭曦的官方网站</font></strong></a>
+				<a class="menuitem">首页</a>
+				<a class="menuitem">文章</a>
+				<a class="menuitem">照片</a>
+				<a class="menuitem">问答</a>
+				{% if user %}
+					<a class="userinfo">hi,{{user.username}}</a>
+				{% endif %}
 			</div>
 		</center>
 	</div>

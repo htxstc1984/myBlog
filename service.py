@@ -5,7 +5,7 @@ Created on 2014年11月12日
 @author: huangtx
 '''
 from flask.app import Flask
-from flask.globals import request
+from flask.globals import request, session
 from flask.helpers import url_for
 from werkzeug.utils import redirect
 from myBlogLib.models.Model import User
@@ -24,10 +24,11 @@ if __name__ == '__main__':
     def doLogin():
         flag, obj = User.doLogin(request.form['username'], request.form['password'])
         if flag:
+            app.jinja_env.globals.update(dict(user=obj))
             return render_template('blogManager.html', user=obj)
         else:
             return redirect(url_for('login', error=obj))
         
         
-    app.run(host='0.0.0.0', port=8088)
+    app.run(host='0.0.0.0', port=8088, debug=True)
     
